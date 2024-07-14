@@ -2,7 +2,7 @@ import os
 import paramiko
 import time
 
-HOSTNAME='192.168.0.13'
+HOSTNAME='192.168.0.84'
 USERNAME='ft'
 PASSWORD='fischertechnik'
 
