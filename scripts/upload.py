@@ -1,7 +1,8 @@
 import os
 import paramiko
+from pathlib import PurePosixPath
 
-HOSTNAME='192.168.0.13'
+HOSTNAME='192.168.0.84'
 USERNAME='ft'
 PASSWORD='fischertechnik'
 
@@ -9,8 +10,8 @@ def copy_helper(sftp: paramiko.SFTPClient, src: str, dest: str):
     sftp.mkdir(dest)
     
     for item in os.listdir(src):
-        local_item = os.path.join(src, item)
-        remote_item = os.path.join(dest, item)
+        local_item = src + '/' + item
+        remote_item = dest + '/' + item
 
         if os.path.isdir(local_item):
             copy_helper(sftp, local_item, remote_item)
@@ -18,7 +19,7 @@ def copy_helper(sftp: paramiko.SFTPClient, src: str, dest: str):
             sftp.put(local_item, remote_item)
 
 def upload(sftp: paramiko.SFTPClient, project_name: str, dest: str):
-    copy_helper(sftp, project_name, os.path.join(dest, project_name))
+    copy_helper(sftp, project_name, dest + '/' + project_name )
 
 def main():
     ssh = paramiko.SSHClient() 
