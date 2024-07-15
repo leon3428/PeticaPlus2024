@@ -8,7 +8,7 @@ PASSWORD='fischertechnik'
 
 def main():
     ssh = paramiko.SSHClient() 
-    ssh.load_host_keys(os.path.expanduser(os.path.join("~", ".ssh", "known_hosts")))
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(HOSTNAME, username=USERNAME, password=PASSWORD)
 
     stdin, stdout, stderr = ssh.exec_command("sudo -S python3 /opt/ft/workspaces/ft_example/main.py")
